@@ -6,16 +6,18 @@ from collections import deque
 
 broker = '192.168.0.93'
 port = 8883
-topic = "to-client/54/uart"
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
-#pattern = [1, 0b11000011, 0b11001100, 0b11110000, 0b11010100, 0b11111111]
-pattern = [0b00111101, 0b00111011, 0b00111001, 0b00111001, 0b00111001]
+
+
+def on_message(client, userdata, message):
+    print(f"Received `{str(message.payload.decode())}` from `{message.topic}` topic")
 
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
             print("Connected to MQTT Broker!")
+            client.subscribe("from-client/#")
         else:
             print(f"Failed to connect, return code {rc}\n")
 
@@ -29,7 +31,6 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 0
-    d = deque(pattern)
     message = 50
     client.publish('to-client/11/pwm/22/5', message, qos=0)
 
@@ -42,22 +43,22 @@ def publish(client):
     message = 50
     client.publish('to-client/55/pwm/22/5', message, qos=0)
     while True:
-        time.sleep(0.25)
-        d.rotate(1)
+        time.sleep(1)
         message = json.dumps({"strip": 1, "pixels": 2, "pattern": [1, 2], "repeat": 1})
-        result = client.publish('to-client/11/uart', message, qos=0)
+        client.publish('to-client/11/uart', message, qos=0)
         message = 0
-        result = client.publish('to-client/11/adc', message, qos=0)
+        result = client.publish('to-client/11/adc/2', message, qos=0)
+        result = client.publish('to-client/15/adc/2', message, qos=0)
+        result = client.publish('to-client/55/adc/2', message, qos=0)
         status = result[0]
-        if status == 0:
-            print(f"Send `{message}` to topic `{topic}`")
-        else:
-            print(f"Failed to send message to topic {topic}")
+        if status != 0:
+            print(f"Failed to send message to topic")
         msg_count += 1
 
 
 def run():
     client = connect_mqtt()
+    client.on_message = on_message
     client.loop_start()
     publish(client)
 
