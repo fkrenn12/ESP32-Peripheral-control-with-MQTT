@@ -3,4 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.13 (ESP32-Peripheral-control-with-MQTT)" />
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 virtualenv at D:\Projects\Micropython\ESP32-Peripheral-control-with-MQTT\.venv" project-jdk-type="Python SDK" />
 </project>
