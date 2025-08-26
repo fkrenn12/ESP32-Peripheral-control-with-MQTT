@@ -11,7 +11,7 @@ import gc
 machine.freq(160000000)  # max frequency for ESP32-C6
 # General
 CLIENT_ADDRESS = get_address()
-
+# update
 # WiFi-Konfiguration
 SSID = "LAWIG14-FlexBox"
 PASSWORD = "wiesengrund14"
