@@ -142,7 +142,7 @@ def main():
     rgb[0] = (0, 0, 0)
     rgb.write()
     counter = 0
-    LOOP_DELAY = 0.0015  # should NOT be below 0.0015
+    LOOP_DELAY = 0.15  # should NOT be below 0.0015
     while True:
         try:
             counter += 1
