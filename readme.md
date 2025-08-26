@@ -11,7 +11,7 @@
 Please not again: At the moment of the project status you must use 1.25.0    
 You can use the Thonny tool from here https://thonny.org/ to flash the ESP32.     
 - Copy adc.py, boot.py, gpio.py and main.py into the root of the ESP32-C6.   
-- Change Wifi and broker credentials in main.py  
+- Change Wifi and broker credentials in main.py    
 Note: Only ESP32-C6 is tested. Maybe it is running on other ESP32, but cannot be guaranteed.    
 #### Limitations
 After using pin as gpio output it cannot be reused as pwm pin  
