@@ -1,3 +1,5 @@
+from random import randint
+
 import paho.mqtt.client as mqtt
 import time
 import random
@@ -31,6 +33,11 @@ def connect_mqtt():
 
 def publish(client):
     msg_count = 0
+    message = json.dumps({"animation": 1})
+    client.publish('to-client/11/uart', message, qos=0)
+    message = json.dumps({"strip": 2, "pixels": 8, "pattern": [1,2,3,7,11,7,2,1], "repeat": 0, "animation-mode":
+                          "rotate-right", "interval":100})
+    client.publish('to-client/11/uart', message, qos=0)
     message = 50
     client.publish('to-client/11/pwm/22/5', message, qos=0)
 
@@ -44,12 +51,15 @@ def publish(client):
     client.publish('to-client/55/pwm/22/5', message, qos=0)
     while True:
         time.sleep(1)
-        message = json.dumps({"strip": 1, "pixels": 2, "pattern": [1, 2], "repeat": 1})
+        message = json.dumps({"strip": 1, "pixels": 2, "pattern": [randint(0,10), randint(11,29)], "repeat": 1})
         client.publish('to-client/11/uart', message, qos=0)
         message = 0
         result = client.publish('to-client/11/adc/2', message, qos=0)
         result = client.publish('to-client/15/adc/2', message, qos=0)
         result = client.publish('to-client/55/adc/2', message, qos=0)
+
+        message = randint(20,75)
+        client.publish('to-client/15/pwm/21/300', message, qos=0)
         status = result[0]
         if status != 0:
             print(f"Failed to send message to topic")

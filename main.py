@@ -9,6 +9,7 @@ from random import randint
 import gc
 
 machine.freq(160000000)  # max frequency for ESP32-C6
+machine.Pin(21).init(machine.Pin.IN)
 # General
 CLIENT_ADDRESS = get_address()
 # update
