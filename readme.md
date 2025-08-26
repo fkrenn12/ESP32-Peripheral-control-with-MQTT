@@ -6,6 +6,10 @@
 
 ![alt text](docu/Client-Waveshare-ESP32C6.png "Title")
 
+### Install
+Flash the latest micropython version to the ESP32-C6 Zero board.   
+Copy adc.py, boot.py, gpio.py and main.py into the root of the ESP32.  
+Note: Only ESp32-C6 is tested. MAybe it is running on other but not guaranteed.  
 #### Limitations
 After using pin as gpio output it cannot be reused as pwm pin  
 
